@@ -11,12 +11,14 @@ class Collide
     int cometLength = 1;
     int forward = 1;
     uint16_t reverseHue = 0;
+    uint16_t offsetPix = 0;
 
   public:
     Collide(Adafruit_NeoPixel* strip, uint8_t maxBrightness, int cometLength);
     void start();
     void stop();
     void loop();
+    int ioffsetPix(int inpix);
 };
 
 Collide::Collide(Adafruit_NeoPixel* strip, uint8_t maxBrightness, int cometLength)
@@ -44,10 +46,19 @@ void Collide::stop()
   started = false;
   forward = 1;
 }
+int Collide::ioffsetPix(int inpix)
+{
+  int pixy = inpix - (int) offsetPix;
+  if (pixy < 0) pixy = pixy + ledCount;
+  if (pixy >= ledCount) pixy = pixy - ledCount;
+  return pixy;
+}
 void Collide::loop()
 {
- if (!started) return;
+  if (!started) return;
   int iipix = ipixel;
+  int ipixLow;
+  int ipixHigh;
   for (int ii = 0; ii < cometLength; ++ii)
   {
     int iibright = (cometLength - 1 - ii) * (cometLength - 1 - ii) * ((int) maxBrightness);
@@ -56,8 +67,8 @@ void Collide::loop()
     {
       if (ii == 0)
       {
-        strip->setPixelColor(iipix, maxBrightness, maxBrightness, maxBrightness);
-        strip->setPixelColor(ledCount - 1 - iipix, maxBrightness, maxBrightness, maxBrightness);
+        strip->setPixelColor(ioffsetPix(iipix), maxBrightness, maxBrightness, maxBrightness);
+        strip->setPixelColor(ioffsetPix(ledCount - 1 - iipix), maxBrightness, maxBrightness, maxBrightness);
       }
       else
       {
@@ -65,19 +76,19 @@ void Collide::loop()
         {
           if (iipix ==  (ledCount / 2))
           {
-            strip->setPixelColor(iipix, maxBrightness, maxBrightness, maxBrightness);
-            strip->setPixelColor(ledCount - 1 - iipix, maxBrightness, maxBrightness, maxBrightness);
+            strip->setPixelColor(ioffsetPix(iipix), maxBrightness, maxBrightness, maxBrightness);
+            strip->setPixelColor(ioffsetPix(ledCount - 1 - iipix), maxBrightness, maxBrightness, maxBrightness);
           }
           else
           {
-            strip->setPixelColor(iipix, strip->ColorHSV((uint16_t) random(65535),255,(uint8_t) iibright));
-            strip->setPixelColor(ledCount - 1 - iipix, strip->ColorHSV((uint16_t) random(65535),255,(uint8_t) iibright));
+            strip->setPixelColor(ioffsetPix(iipix), strip->ColorHSV((uint16_t) random(65535),255,(uint8_t) iibright));
+            strip->setPixelColor(ioffsetPix(ledCount - 1 - iipix), strip->ColorHSV((uint16_t) random(65535),255,(uint8_t) iibright));
           }
         }
         else
         {
-          strip->setPixelColor(iipix, strip->ColorHSV(reverseHue,255,(uint8_t) iibright));
-          strip->setPixelColor(ledCount - 1 - iipix, strip->ColorHSV(reverseHue,255,(uint8_t) iibright));
+          strip->setPixelColor(ioffsetPix(iipix), strip->ColorHSV(reverseHue,255,(uint8_t) iibright));
+          strip->setPixelColor(ioffsetPix(ledCount - 1 - iipix), strip->ColorHSV(reverseHue,255,(uint8_t) iibright));
         }
       }
       strip->show();
@@ -90,8 +101,8 @@ void Collide::loop()
     {
       if (iipix >= 0)
       {
-        strip->setPixelColor(iipix, strip->ColorHSV(hue,255,0));
-        strip->setPixelColor(ledCount - 1 - iipix, strip->ColorHSV(hue,255,0));
+        strip->setPixelColor(ioffsetPix(iipix), strip->ColorHSV(hue,255,0));
+        strip->setPixelColor(ioffsetPix(ledCount - 1 - iipix), strip->ColorHSV(hue,255,0));
       }
       strip->show();
       ipixel = ipixel + forward;
@@ -109,8 +120,8 @@ void Collide::loop()
     {
       if (iipix < ledCount / 2) 
       {
-        strip->setPixelColor(iipix, strip->ColorHSV(hue,255,0));
-        strip->setPixelColor(ledCount - 1 - iipix, strip->ColorHSV(hue,255,0));
+        strip->setPixelColor(ioffsetPix(iipix), strip->ColorHSV(hue,255,0));
+        strip->setPixelColor(ioffsetPix(ledCount - 1 - iipix), strip->ColorHSV(hue,255,0));
       }
       strip->show();
       ipixel = ipixel + forward;
