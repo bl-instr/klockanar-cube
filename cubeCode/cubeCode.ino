@@ -1,9 +1,9 @@
 #define BLINKY_DIAG         0
 #define CUBE_DIAG           0
-#define COMM_LED_PIN        LED_BUILTIN   //16
-#define RST_BUTTON_PIN     16             //17
+#define COMM_LED_PIN       16             //LED_BUILTIN 
+#define RST_BUTTON_PIN     17             //16
 #define LED_PIN    15
-#define LED_COUNT          48             //49
+#define LED_COUNT          49             //48
 #include <BlinkyPicoW.h>
 #include <Adafruit_NeoPixel.h>
 #include "glowRing.h"
@@ -65,18 +65,18 @@ void setupBlinky()
     delay(5000);
   }
   
-  boolean  useFlashStorage = true;
-/*  
-  BlinkyPicoW.setSsid("RedRoofInn");
-  BlinkyPicoW.setWifiPassword("SwedishChef");
+  boolean  useFlashStorage = false;
+/**/  
+  BlinkyPicoW.setSsid("ssid");
+  BlinkyPicoW.setWifiPassword("ssid_pw");
   BlinkyPicoW.setMqttServer("hub.bl-mc.com");
-  BlinkyPicoW.setMqttUsername("blinkybox-demo");
+  BlinkyPicoW.setMqttUsername("klockanar");
   BlinkyPicoW.setMqttPassword("areallybadpassword");
-  BlinkyPicoW.setBox("blinkybox-demo");
+  BlinkyPicoW.setBox("klockanar");
   BlinkyPicoW.setTrayType("klar");
-  BlinkyPicoW.setTrayName("04-8d-ae");  
+  BlinkyPicoW.setTrayName("ghulla");  
   BlinkyPicoW.setCubeType("blinky-hub");
-*/ 
+/**/ 
   
   BlinkyPicoW.setMqttKeepAlive(15);
   BlinkyPicoW.setMqttSocketTimeout(4);
