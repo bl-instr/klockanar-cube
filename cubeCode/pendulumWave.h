@@ -24,7 +24,8 @@ PendulumWave::PendulumWave(Adafruit_NeoPixel* strip)
   this->ledCount = strip->numPixels();
   this->hueStep = 1;
   this->mixMult = 1;
-  for (int ipix = 0; ipix < ledCount; ++ipix) ledHue[ipix] = 0;
+  uint16_t startHue = (uint16_t) random(65535);
+  for (int ipix = 0; ipix < ledCount; ++ipix) ledHue[ipix] = startHue;
 }
 
 void PendulumWave::start()
@@ -32,7 +33,8 @@ void PendulumWave::start()
   strip->clear();
   strip->show();
   started = true;
-  for (int ipix = 0; ipix < ledCount; ++ipix) ledHue[ipix] = 0;
+  uint16_t startHue = (uint16_t) random(65535);
+  for (int ipix = 0; ipix < ledCount; ++ipix) ledHue[ipix] = startHue;
 }
 void PendulumWave::stop()
 {
@@ -46,7 +48,8 @@ void PendulumWave::setHueStep(uint16_t hueStep, uint16_t mixMult, uint16_t value
   this->hueStep = this->hueStep << hueStep; // mult by 2
   this->mixMult = mixMult;
   this->value = value;
-  for (int ipix = 0; ipix < ledCount; ++ipix) ledHue[ipix] = 0;
+  uint16_t startHue = (uint16_t) random(65535);
+  for (int ipix = 0; ipix < ledCount; ++ipix) ledHue[ipix] = startHue;
 }
 
 void PendulumWave::loop()
