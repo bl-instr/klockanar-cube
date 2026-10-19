@@ -2,7 +2,7 @@
 
 **A configurable 48-LED light ring for engineers who want a fun, wireless Blinky-Lite project.**
 
-<img src="klockanar.gif" alt="klockanar-cube" width="400"/>
+<img src="klockanar.gif" alt="klockanar-cube" width="800"/>
 
 ## Overview
 
