@@ -1,9 +1,9 @@
 #define BLINKY_DIAG         0
 #define CUBE_DIAG           0
-#define COMM_LED_PIN       16             //LED_BUILTIN 
-#define RST_BUTTON_PIN     17             //16
+#define COMM_LED_PIN       LED_BUILTIN    //16
+#define RST_BUTTON_PIN     16             //17
 #define LED_PIN    15
-#define LED_COUNT          49             //48
+#define LED_COUNT          48             //49
 #include <BlinkyPicoW.h>
 #include <Adafruit_NeoPixel.h>
 #include "glowRing.h"
@@ -65,8 +65,8 @@ void setupBlinky()
     delay(5000);
   }
   
-  boolean  useFlashStorage = false;
-/**/  
+  boolean  useFlashStorage = true;
+/*  
   BlinkyPicoW.setSsid("ssid");
   BlinkyPicoW.setWifiPassword("ssid_pw");
   BlinkyPicoW.setMqttServer("hub.bl-mc.com");
